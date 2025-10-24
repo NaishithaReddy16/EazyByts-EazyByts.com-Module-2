@@ -1,4 +1,3 @@
-// backend/server.js
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -13,10 +12,16 @@ const stocks = [
   { symbol: "SBIN", name: "State Bank of India", price: 630, change: "-5", percent: "-0.79%" },
 ];
 
+// Root route
+app.get("/", (req, res) => {
+  res.send("✅ Backend deployed successfully!");
+});
+
 // API endpoint
 app.get("/api/stocks", (req, res) => {
   res.json(stocks);
 });
 
-// Start server
-app.listen(5000, () => console.log("✅ Backend running on port 5000"));
+// Use environment PORT if available, else default 5000
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`✅ Backend running on port ${PORT}`));
